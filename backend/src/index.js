@@ -17,5 +17,6 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/sales', require('./routes/saleRoutes'));
 app.use('/api/inventory', require('./routes/inventoryRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
 
 app.listen(4000, () => console.log('Backend en puerto 4000'));

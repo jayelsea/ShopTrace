@@ -1,1 +1,0 @@
-// Aquí van las funciones para llamar al backend

@@ -1,1 +1,0 @@
-export default function InventoryTable() { return <table><thead></thead><tbody></tbody></table>; }
