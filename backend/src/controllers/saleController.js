@@ -1,4 +1,5 @@
 const Sale = require('../postgres/Sale');
+const InventoryItem = require('../postgres/InventoryItem');
 
 exports.getAllSales = async (req, res) => {
   const sales = await Sale.findAll();
@@ -6,6 +7,17 @@ exports.getAllSales = async (req, res) => {
 };
 
 exports.createSale = async (req, res) => {
+  const { product, quantity } = req.body;
+  const item = await InventoryItem.findOne({ where: { name: product } });
+  if (!item) {
+    return res.status(400).json({ message: 'Producto no encontrado en inventario' });
+  }
+  if (item.quantity < quantity) {
+    return res.status(400).json({ message: 'Stock insuficiente' });
+  }
+  // Descontar stock
+  item.quantity -= quantity;
+  await item.save();
   const sale = await Sale.create(req.body);
   res.status(201).json(sale);
 };

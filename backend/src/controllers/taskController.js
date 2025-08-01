@@ -5,6 +5,13 @@ exports.getAllTasks = async (req, res) => {
   res.json(tasks);
 };
 
+// Obtener tareas del usuario autenticado
+exports.getMyTasks = async (req, res) => {
+  const userId = req.user.id;
+  const tasks = await Task.findAll({ where: { userId } });
+  res.json(tasks);
+};
+
 exports.createTask = async (req, res) => {
   const task = await Task.create(req.body);
   res.status(201).json(task);
